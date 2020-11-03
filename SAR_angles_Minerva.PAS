@@ -1,6 +1,6 @@
 program SAR_angles_Minerva(input,output);
 
-{Duncan Steel, 2020 October 06}
+{Duncan Steel, 2020 October 13}
 {Program for deriving incident angles for SAR from different satellites given a range of look angles}
 {This is for the latitude of the Minerva reefs: -23 deg}
 
@@ -26,8 +26,7 @@ pi:=4.0 * arctan(1.0); convrd:=180.0/pi;
 Assign(ofl,'SAR_angles.txt');
 rewrite(ofl);
 
-r:=6375.0; {Assumed Earth radius, appropriate for latitude 40 degrees}
-           {Earth radius varies by less than 4 km between latitudes 35 and 45 degrees}
+r:=6375.0; {Assumed Earth radius, appropriate for latitude 22 degrees}
 writeln; writeln;
 write('Assumed altitude (km)?  '); readln(h);
 {At latitude 40 degrees: }
@@ -48,13 +47,13 @@ c2:=180.0 - a2;
 b1:=(asin(x * sin(c1/convrd)))*convrd;
 b2:=(asin(x * sin(c2/convrd)))*convrd;
 writeln;
-writeln('Beam limits',b1:6:2,b2:6:2);
+writeln('Beam limits',(90.0-b2):6:2,(90.0-b1):6:2);
 looka:=(b1 + b2)/2.0;
 ranga:=(b2 - b1)/2.0;
 
 writeln;
-writeln('Look angle =  ',looka:6:2,' +/- ',ranga:6:2);
-writeln(ofl,'Look angle =  ',looka:6:1,' +/- ',ranga:6:1);
+writeln('Look angle =  ',(90.0-looka):6:2,' +/- ',ranga:6:2);
+writeln(ofl,'Look angle =  ',(90.0-looka):6:1,' +/- ',ranga:6:1);
 writeln;
 readln;
 
